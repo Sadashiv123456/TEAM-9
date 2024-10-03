@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<body>
+<h1 style="color: crimson;">Machine Status</h1>
+<div id="myPlot" style="width:100%;max-width:700px;align-items: center;margin-left: 550px;"></div>
+<div id="myPlot1" style="width:100%;max-width:700px;align-items: center;margin-left: 550px;"></div>
+<p id="show"></p>
+<p id="show1"></p>
+
+
+<script>
+     async function callApi() {
+            let result = await fetch('https://iprpxs33d2.execute-api.us-east-1.amazonaws.com/Stage-3')
+            result = await result.json();
+            let stock= await fetch('https://sn8rxlivdb.execute-api.us-east-1.amazonaws.com/Stage-1/')
+            stock = await stock.json();
+            let stock1= stock.slice(0,10);
+            console.warn(result)
+            let ans = result.slice(0,10);
+           // document.write(result)
+           
+        //const p = document.createElement('p'); // Create a new paragraph element
+       // p.textContent = item; // Set the text content to the item (message)
+       // p.className = 'stock-item'; // Add a class for styling purposes
+        //stockListDiv.appendChild(p); // Append the paragraph to the div
+       
+    let xmedicineName = [];
+    const quantity =[];
+    let date =[];//date
+    let cost =[];
+    let Stock =[];
+    let med =[];
+    stock1.forEach(item => {
+    if (item.Medicine_name!=null)
+    {
+      med.push(item.Medicine_name)
+      Stock.push(item.Stock_level);
+    }
+  })
+    ans.forEach(item => {
+    if (item.Medicine_name!=null)
+    {
+    xmedicineName.push(item.Medicine_name);
+    quantity.push(item.Quantity);
+    date.push(item.Date);
+    cost.push(item.Cost);
+   }
+   
+})
+// document.getElementById("show").innerHTML=xmedicineName;
+// document.getElementById("show1").innerHTML=ystock;
+const data = [{
+  x:med,
+  y:Stock,
+  type:"bar"
+}];
+
+
+
+
+const layout = {title:"Stock Management"};
+
+
+Plotly.newPlot("myPlot", data, layout);
+
+
+const data1 = [{
+  labels:xmedicineName,
+  values:cost,
+  type:"pie"
+}];
+
+
+
+
+const layout1 = {title:"Profit per Medicine (₹)"};
+
+
+Plotly.newPlot("myPlot1", data1, layout1);
+//  document.write(xmedicineName)
+// document.write(ystock)
+// document.write(cost)
+// for (var i in xmedicineName)
+// {
+//     document.write(xmedicineName[i])
+//     document.write(ystock[i])
+// }
+ }
+callApi()
+
+
+
+
+// const xArray=[];
+// const yArray=[];
+
+
+// for(let i in xmedicineName){
+//     xArray[i] = xmedicineName[i];
+// }
+// for(let i in ystock){
+//     yArray[i] = ystock[i];
+// }
+
+
+
+
+</script>
+
+
+</body>
+</html>
+
