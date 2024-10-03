@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Vending Machine Selection</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        .container { width: 300px; margin: auto; padding: 20px; border: 1px solid #ccc; }
+        input, select, button { margin: 10px 0; padding: 10px; width: 100%; }
+        button { background-color: #4CAF50; color: white; border: none; }
+        button:hover { background-color: #45a049; }
+        #error { color: red; }
+        #vending-graph { display: none; }
+    </style>
+</head>
+<body>
+
+
+    <!-- Login Section -->
+    <div class="container" id="login-section">
+        <h2>Login</h2>
+        <input type="text" id="userId" placeholder="User ID" /><br>
+        <input type="password" id="password" placeholder="Password" /><br>
+        <button onclick="login()">Login</button>
+        <p id="error"></p>
+    </div>
+
+
+    <!-- Selection Section -->
+    <div class="container" id="selection-section" style="display: none;">
+        <h2>Select Place and Machine</h2>
+        <label for="place">Select Place:</label>
+        <select id="place" onchange="showMachines()">
+            <option value="">--Select--</option>
+            <option value="Bengaluru">Bengaluru</option>
+            <option value="Trivandrum">Trivandrum</option>
+            <option value="Chennai">Chennai</option>
+        </select><br>
+
+
+        <label for="machine">Select Machine:</label>
+        <select id="machine">
+            <option value="">--Select Machine--</option>
+        </select><br>
+
+
+        <button onclick="submitForm()">Submit</button>
+    </div>
+
+
+    <!-- Vending Machine Graph Section -->
+    <div class="container" id="vending-graph">
+        <h2>Vending Machine Graph</h2>
+        <p id="graph-details"></p>
+        <img src="https://via.placeholder.com/300x200.png?text=Vending+Machine+Graph" alt="Vending Machine Graph">
+    </div>
+
+
+    <script>
+        function login() {
+            const userId = document.getElementById("userId").value;
+            const password = document.getElementById("password").value;
+
+
+            if (userId === "Sada" && password === "1234") {
+                document.getElementById("login-section").style.display = "none";
+                document.getElementById("selection-section").style.display = "block";
+            } else {
+                document.getElementById("error").innerText = "Invalid User ID or Password!";
+            }
+        }
+
+
+        function showMachines() {
+            const machineSelect = document.getElementById("machine");
+            const place = document.getElementById("place").value;
+
+
+           
+            machineSelect.innerHTML = '<option value="">--Select Machine--</option>';
+
+
+         
+            if (place=="Bengaluru") {
+                for (let i = 1; i <= 3; i++) {
+                    const option = document.createElement("option");
+                    option.value = `Machine ${i}`;
+                    option.text = `Machine ${i}`;
+                    machineSelect.appendChild(option);
+                }
+            }
+             if (place=="Trivandrum") {
+                for (let i = 4; i <= 6; i++) {
+                    const option = document.createElement("option");
+                    option.value = `Machine ${i}`;
+                    option.text = `Machine ${i}`;
+                    machineSelect.appendChild(option);
+                }
+            }
+                if (place=="Chennai") {
+                for (let i = 7; i <= 9; i++) {
+                    const option = document.createElement("option");
+                    option.value = `Machine ${i}`;
+                    option.text = `Machine ${i}`;
+                    machineSelect.appendChild(option);
+                }
+            }
+        }
+
+
+        function submitForm() {
+            const place = document.getElementById("place").value;
+            const machine = document.getElementById("machine").value;
+
+
+            if (place=="Bengaluru" && machine=="Machine 1"||"Machine 4"||"Machine 7") {
+                window.location.href='dashboard.html';
+
+
+            }
+            else if (place && machine=="Machine 2"||"Machine 5"||"Machine 8") {
+                window.location.href='dashboard2.html';
+             
+            }  
+            else if (place&& machine=="Machine 3"||"Machine 6"||"Machine 9") {
+                window.location.href='dashboard3.html';
+               
+            }
+            else {
+                alert("Please select both a place and machine.");
+            }
+        }
+    </script>
+
+
+</body>
+</html>
